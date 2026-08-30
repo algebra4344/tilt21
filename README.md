@@ -2,9 +2,9 @@
 
 # Tilt21
 
-### Free, open-source multiplayer poker & blackjack platform
+### Play poker & blackjack online with friends — free, no account needed
 
-Play **Texas Hold'em** and **blackjack** online with friends, train against bots, or run a **chipless poker night** with real cards and digital chips. Real-time, no account required, MIT licensed.
+Texas Hold'em and blackjack you can actually play with people, not just bots. Open a table, share a link, and you're in. Or run a chipless poker night on real cards with your phones tracking the chips.
 
 </div>
 
@@ -12,53 +12,38 @@ Play **Texas Hold'em** and **blackjack** online with friends, train against bots
 
 ## What is Tilt21?
 
-Tilt21 is a real-time multiplayer card game platform built for playing poker and blackjack with friends. It started as a blackjack card counting trainer and grew into a full platform — but it's still free, still no sign-up required to play, and designed to be self-hostable.
+Tilt21 is a card game platform built around one simple idea: **playing cards with friends should be easy.**
 
-**Why "tilt"?** In poker, *going on tilt* means losing your composure after a bad beat. Tilt21 exists to help you study, practice, and play — so the tilt never happens in the first place.
+No sign-ups, no installs, no setup. You open a table, someone shares the link, and the game runs in your browser in real time. Want practice for yourself? There's a mode for that too.
 
-## Features
+It all started as a blackjack card counting trainer and grew into a full platform — poker, blackjack, multiplayer, chipless home games, the works. It's still free, still MIT licensed, and you can host your own copy if you want.
 
-### Texas Hold'em Poker
+**Why the name?** In poker, going *on tilt* is when a bad beat makes you lose your composure and play worse. Tilt21 exists so you can study, practice, and enjoy the game — and keep your cool at the table.
 
-- **Play poker online with friends** — real-time multiplayer via WebSocket, bots fill empty seats, invite links + QR codes
-- **Chipless poker night** — the home game killer app: use a real physical deck, phones track stacks, bets, and payouts, with a settlement modal at the end. No chips required, no hardware to buy
-- **Play vs bots** — solo Texas Hold'em trainer with live equity, hand history, and session stats
-- **Full hand evaluation** — royal flush through high card, preflop ranges (open / vs 3-bet / vs raise), 6 and 9 player tables
+## What can you do with it?
 
-### Blackjack
+- **Play Texas Hold'em with friends** — real-time multiplayer, invite links and QR codes, and bots fill empty seats so a short-handed table still plays
+- **Run a chipless poker night** — bring a real deck, and use your phones to track stacks, bets, and payouts instead of chips. Settlement happens right on screen when the night's over
+- **Play poker against bots** — practice heads up or at a full table, and see your equity live
+- **Learn blackjack card counting** — a Hi-Lo trainer with visual count hints, true count bet sizing, and instant corrections
+- **Play blackjack with friends** — shared tables, private rooms, and in-game chat
+- **Practice blackjack solo** — a basic strategy coach that runs entirely in the browser, no backend needed
 
-- **Card counting trainer** — Hi-Lo count with visual card pops, true count bet sizing, active count verification with tolerance grading
-- **Basic strategy coach** — plain-English corrections, hand history with per-hand tips, game modes (default, pairs, uncommon, deviations), Illustrious 18 deviations
-- **Multiplayer blackjack** — share a link, play in real time with friends, private rooms with join tokens, in-game chat
-- **EV simulator** — multi-core simulation engine computes EV for any table conditions (deck count, rules, penetration, bet spread)
+## Quick start (Docker)
 
-### Platform
-
-- **No account required to play** — guest mode for multiplayer and practice
-- Optional accounts: JWT auth, persistent stats, leaderboards
-- In-memory rooms with idle sweep, per-IP and global table caps
-- Responsive dark-mode UI, landscape mode for table games
-- Docker Compose for one-command local setup, Render Blueprint for one-click deploy
-
-## Tech Stack
-
-| Package | Tech |
-| ------- | ---- |
-| `core` | TypeScript, zero-dependency game engine (blackjack + poker), Webpack |
-| `server` | Node.js, Express, Socket.io, Drizzle ORM, PostgreSQL, JWT, Zod |
-| `web` | Next.js 16, React 19, Zustand, Tailwind CSS 4, Socket.io client |
-
-## Quick Start (Docker)
+The easiest way to try the whole thing locally:
 
 ```bash
 docker compose up --build
 ```
 
-- Frontend: http://localhost:3000
-- API: http://localhost:3001
-- PostgreSQL: localhost:5432
+| What | Where |
+|---|---|
+| Frontend | http://localhost:3000 |
+| API | http://localhost:3001 |
+| PostgreSQL | localhost:5432 |
 
-## Manual Setup
+## No Docker? Run it manually
 
 ```bash
 git clone https://github.com/algebra4344/tilt21.git
@@ -70,65 +55,64 @@ npx drizzle-kit push --config packages/server/drizzle.config.ts
 npm run dev
 ```
 
-## How to Play
+Then open http://localhost:3000.
 
-### Poker (no account)
+## Playing with friends
 
-1. Pick **Online** or **Chipless** from the home page
-2. Enter a name and start a table — or open a shared link
-3. Tap **Invite** to copy the link, share it, or show the QR code
-4. Chipless mode tracks stacks on each player's phone; online poker deals bots into empty seats
+**Poker (no account):** Pick **Online** or **Chipless** on the home page → enter a name and start a table → tap **Invite** to copy the link or show a QR code. Chipless mode tracks stacks on each player's phone; online poker deals bots into empty seats.
 
-### Blackjack multiplayer (no account)
+**Blackjack multiplayer (no account):** Open **Multiplayer** → **Quick start** or **New table** → **Invite**. You'll need at least 2 players before the host can deal.
 
-1. Open **Multiplayer** from the home page (or `/lobby`)
-2. Tap **Quick start** or **New table**, then **Invite**
-3. Need at least 2 players before the host can start a hand
+**Blackjack solo:** Open **Solo Practice** — it runs entirely in the browser, no account or backend needed.
 
-### Blackjack practice (solo)
-
-Open **Solo Practice** — runs entirely in the browser, no backend needed.
-
-## Development Commands
+## Development
 
 ```bash
-npm run dev      # server + web in watch mode
+npm run dev      # server + web, watch mode
 npm run build    # build all packages
 npm run test     # core (mocha) + server (vitest) tests
 npm run lint     # eslint across server + web
 ```
 
-## Deployment
+## Tech stack
 
-### Render (recommended, full app)
+| Package | Tech |
+| ------- | ---- |
+| `core` | TypeScript, zero-dependency game engine (blackjack + poker) |
+| `server` | Node.js, Express, Socket.io, Drizzle ORM, PostgreSQL, JWT |
+| `web` | Next.js, React, Zustand, Tailwind CSS |
 
-The repo includes a [Render Blueprint](render.yaml) that provisions PostgreSQL, the API, and the web frontend in one click:
+## How the code is organized
 
-1. Push this repo to GitHub
-2. Render dashboard → **New → Blueprint** → connect the repo
-3. Wait for `tilt21-web` to go Live — that's your multiplayer URL
-
-Solo practice (`/practice`) and the poker-vs-bots trainer run entirely client-side, so the web package can also be deployed standalone.
-
-## Architecture
+The `core` package holds the game engine — rules, deck, hand evaluation, strategy — shared by both the server and the web app. The server is the source of truth for game state and pushes updates over Socket.io; the web app renders the table and sends your actions back over the same connection. That's why everyone at the table sees the same thing in real time.
 
 ```
 tilt21/
 ├── packages/
-│   ├── core/       # Game engine — rules, deck, hand evaluation, strategy (shared)
-│   ├── server/     # Express + Socket.io backend — API, auth, lobby, rooms
-│   └── web/        # Next.js frontend — pages, components, state
+│   ├── core/       # game engine (shared)
+│   ├── server/     # Express + Socket.io backend
+│   └── web/        # Next.js frontend
 ├── docker-compose.yml
 ├── render.yaml     # Render Blueprint (Postgres + API + Web)
 └── package.json    # npm workspace root
 ```
 
-The `core` package is the shared game engine consumed by both `server` and `web`. The server is authoritative over game state and broadcasts updates via Socket.io; the web client renders the UI and sends actions over WebSocket.
+## Deployment
+
+Deploy the full app (Postgres + API + web) in one click using the included [Render Blueprint](render.yaml):
+
+1. Push this repo to GitHub
+2. Render dashboard → **New → Blueprint** → connect the repo
+3. Wait for `tilt21-web` to go Live — that's your multiplayer URL
+
+Solo practice and poker-vs-bots run entirely client-side, so the web package can also be hosted on its own.
 
 ## Testing
 
-- `core`: 119 tests (mocha + chai) — cards, hands, shoes, strategy, simulator, poker engine
-- `server`: 30 tests (vitest) — limits, blackjack rooms, poker rooms
+- `core`: 119 tests — cards, hands, shoes, strategy, simulator, poker engine
+- `server`: 30 tests — limits, blackjack rooms, poker rooms
+
+Run them with `npm run test`.
 
 ## License
 
