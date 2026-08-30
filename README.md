@@ -1,6 +1,6 @@
 <div align="center">
 
-# tilt21
+# Tilt21
 
 ### Free, open-source multiplayer poker & blackjack platform
 
@@ -10,11 +10,11 @@ Play **Texas Hold'em** and **blackjack** online with friends, train against bots
 
 ---
 
-## What is tilt21?
+## What is Tilt21?
 
-tilt21 is a real-time multiplayer card game platform built for playing poker and blackjack with friends. It started as a blackjack card counting trainer and grew into a full platform — but it's still free, still no sign-up required to play, and designed to be self-hostable.
+Tilt21 is a real-time multiplayer card game platform built for playing poker and blackjack with friends. It started as a blackjack card counting trainer and grew into a full platform — but it's still free, still no sign-up required to play, and designed to be self-hostable.
 
-**Why "tilt"?** In poker, *going on tilt* means losing your composure after a bad beat. tilt21 exists to help you study, practice, and play — so the tilt never happens in the first place.
+**Why "tilt"?** In poker, *going on tilt* means losing your composure after a bad beat. Tilt21 exists to help you study, practice, and play — so the tilt never happens in the first place.
 
 ## Features
 
