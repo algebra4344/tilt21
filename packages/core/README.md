@@ -1,4 +1,4 @@
-# Card Table Core
+# tilt21 core
 
 Game engine for blackjack and Texas Hold'em poker. Powers the tilt21 multiplayer platform.
 

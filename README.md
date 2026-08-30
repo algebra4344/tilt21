@@ -1,6 +1,6 @@
 <div align="center">
 
-# ♠️ tilt21
+# tilt21
 
 ### Free, open-source multiplayer poker & blackjack platform
 
@@ -18,21 +18,21 @@ tilt21 is a real-time multiplayer card game platform built for playing poker and
 
 ## Features
 
-### ♥️ Texas Hold'em Poker
+### Texas Hold'em Poker
 
 - **Play poker online with friends** — real-time multiplayer via WebSocket, bots fill empty seats, invite links + QR codes
 - **Chipless poker night** — the home game killer app: use a real physical deck, phones track stacks, bets, and payouts, with a settlement modal at the end. No chips required, no hardware to buy
 - **Play vs bots** — solo Texas Hold'em trainer with live equity, hand history, and session stats
 - **Full hand evaluation** — royal flush through high card, preflop ranges (open / vs 3-bet / vs raise), 6 and 9 player tables
 
-### ♣️ Blackjack
+### Blackjack
 
 - **Card counting trainer** — Hi-Lo count with visual card pops, true count bet sizing, active count verification with tolerance grading
 - **Basic strategy coach** — plain-English corrections, hand history with per-hand tips, game modes (default, pairs, uncommon, deviations), Illustrious 18 deviations
 - **Multiplayer blackjack** — share a link, play in real time with friends, private rooms with join tokens, in-game chat
 - **EV simulator** — multi-core simulation engine computes EV for any table conditions (deck count, rules, penetration, bet spread)
 
-### 🎯 Platform
+### Platform
 
 - **No account required to play** — guest mode for multiplayer and practice
 - Optional accounts: JWT auth, persistent stats, leaderboards
