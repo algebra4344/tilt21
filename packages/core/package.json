@@ -1,0 +1,54 @@
+{
+  "name": "@tilt21/core",
+  "version": "1.0.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "description": "Blackjack and poker game engine with card counting, basic strategy, and hand evaluation",
+  "type": "module",
+  "main": "dist/main.js",
+  "types": "./types.d.ts",
+  "scripts": {
+    "browser": "webpack serve --open",
+    "start": "webpack --watch",
+    "test": "NODE_OPTIONS='--import tsx' mocha ./test/src/**/*.ts",
+    "test:types": "tsc --noEmit --project .",
+    "lint": "eslint --fix ./src ./test",
+    "build": "webpack",
+    "prepare": "husky && npm run build"
+  },
+  "keywords": [
+    "blackjack",
+    "poker",
+    "card-counting",
+    "basic-strategy",
+    "game-engine"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/rosie": "^0.0.45",
+    "@typescript-eslint/eslint-plugin": "^8.57.1",
+    "@typescript-eslint/parser": "^8.57.1",
+    "chai": "^6.2.2",
+    "eslint": "^10.1.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "mocha": "^11.7.5",
+    "prettier": "^3.8.1",
+    "rosie": "^2.1.1",
+    "sinon": "^21.0.3",
+    "sinon-chai": "^4.0.1",
+    "ts-loader": "^9.5.4",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "webpack": "^5.105.4",
+    "webpack-cli": "^7.0.2",
+    "webpack-merge": "^6.0.1"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "eslint --cache --fix"
+  }
+}

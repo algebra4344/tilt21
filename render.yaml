@@ -1,0 +1,52 @@
+# Render Blueprint — deploy from the `cards` folder (set as Root Directory if the
+# repo is a monorepo). Dashboard: New → Blueprint → connect GitHub repo.
+#
+# After first deploy, open the `cards-web` URL on your phone.
+
+databases:
+  - name: cards-db
+    databaseName: blackjack
+    user: blackjack
+    plan: free
+
+services:
+  - type: web
+    name: cards-api
+    runtime: docker
+    dockerfilePath: ./packages/server/Dockerfile
+    dockerContext: .
+    plan: free
+    healthCheckPath: /health
+    preDeployCommand: sh -c "cd packages/server && npx drizzle-kit push"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: cards-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: "3001"
+      - key: CORS_ORIGIN
+        fromService:
+          type: web
+          name: cards-web
+          envVarKey: RENDER_EXTERNAL_URL
+
+  - type: web
+    name: cards-web
+    runtime: docker
+    dockerfilePath: ./packages/web/Dockerfile
+    dockerContext: .
+    plan: free
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: cards-api
+          envVarKey: RENDER_EXTERNAL_URL
+      - key: NEXT_PUBLIC_WS_URL
+        fromService:
+          type: web
+          name: cards-api
+          envVarKey: RENDER_EXTERNAL_URL

@@ -1,0 +1,13 @@
+node_modules
+**/node_modules
+packages/*/dist
+packages/web/.next
+packages/core/.git
+**/*.tsbuildinfo
+.git
+.gitignore
+.env
+.env.local
+*.log
+drizzle
+README.md

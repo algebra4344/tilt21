@@ -1,0 +1,277 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: #0a0e1a;
+  --color-foreground: #fafafa;
+  --color-felt: #1e5a3a;
+  --color-felt-dark: #163d28;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Hide site chrome when a virtual table board is in landscape mode */
+html[data-table-layout="landscape"] body > nav {
+  display: none;
+}
+
+/* ── Chipless theme: warm light default, toggleable to dark ── */
+html[data-chipless-theme="light"] {
+  --ch-bg: #f7f5f0;
+  --ch-surface: #ffffff;
+  --ch-surface-2: #efece5;
+  --ch-border: #e0ddd5;
+  --ch-text: #1c1b18;
+  --ch-muted: #7d786e;
+  --ch-accent: #177a53;
+  --ch-gold: #a07a1c;
+  --ch-danger: #c04a38;
+}
+
+html[data-chipless-theme="dark"] {
+  --ch-bg: #0a0a0a;
+  --ch-surface: #171717;
+  --ch-surface-2: #202020;
+  --ch-border: #2e2e2e;
+  --ch-text: #f4f4f5;
+  --ch-muted: #9b978e;
+  --ch-accent: #10b981;
+  --ch-gold: #fbbf24;
+  --ch-danger: #ef4444;
+}
+
+html[data-chipless-theme="light"] body {
+  background: var(--ch-bg);
+  color: var(--ch-text);
+}
+
+html[data-chipless-theme="dark"] body {
+  background: var(--ch-bg);
+  color: var(--ch-text);
+}
+
+.ch-page { background: var(--ch-bg); color: var(--ch-text); }
+.ch-card { background: var(--ch-surface); border: 1px solid var(--ch-border); }
+.ch-card-2 { background: var(--ch-surface-2); border: 1px solid var(--ch-border); }
+.ch-input {
+  background: var(--ch-surface);
+  border: 1px solid var(--ch-border);
+  color: var(--ch-text);
+}
+.ch-input:focus { border-color: var(--ch-accent); outline: none; }
+.ch-muted { color: var(--ch-muted); }
+.ch-gold { color: var(--ch-gold); }
+.ch-accent { color: var(--ch-accent); }
+.ch-hero {
+  background: linear-gradient(180deg, color-mix(in srgb, var(--ch-accent) 10%, var(--ch-surface)) 0%, var(--ch-surface) 100%);
+  border: 1px solid color-mix(in srgb, var(--ch-accent) 30%, var(--ch-border));
+}
+.ch-selected {
+  background: color-mix(in srgb, var(--ch-accent) 12%, var(--ch-surface));
+  border-color: var(--ch-accent);
+}
+.ch-toact {
+  border-color: var(--ch-gold);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--ch-gold) 55%, transparent);
+}
+.ch-won {
+  background: color-mix(in srgb, var(--ch-accent) 14%, var(--ch-surface));
+  border-color: var(--ch-accent);
+}
+.ch-bar {
+  background: color-mix(in srgb, var(--ch-bg) 96%, transparent);
+  border-color: var(--ch-border);
+}
+.ch-btn-ghost {
+  background: var(--ch-surface-2);
+  color: var(--ch-text);
+  border: 1px solid var(--ch-border);
+}
+.ch-btn-ghost:hover { border-color: var(--ch-muted); }
+
+/* Felt table background */
+.bg-felt {
+  background: radial-gradient(ellipse at center, #1e5a3a 0%, #1a472a 50%, #14352a 100%);
+}
+
+.felt-texture {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* Card flip animation */
+.card-wrapper {
+  perspective: 800px;
+  display: inline-block;
+  position: relative;
+  animation: dealCard 0.4s ease-out both;
+}
+
+@keyframes dealCard {
+  0% {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.8) rotate(-10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+/* Active player glow */
+@keyframes activeGlow {
+  0%, 100% {
+    box-shadow: 0 0 8px 2px rgba(251, 191, 36, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 16px 4px rgba(251, 191, 36, 0.6);
+  }
+}
+
+.animate-pulse {
+  animation: activeGlow 2s ease-in-out infinite;
+}
+
+/* Result overlay pop */
+@keyframes resultPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  70% {
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-result-pop {
+  animation: resultPop 0.4s ease-out;
+}
+
+/* Board card deal */
+@keyframes dealBoardCard {
+  0% {
+    opacity: 0;
+    transform: translateY(-16px) scale(0.85);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-deal-board {
+  animation: dealBoardCard 0.3s ease-out both;
+}
+
+/* Pot pulse when amount changes */
+@keyframes potPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.12); filter: brightness(1.2); }
+  100% { transform: scale(1); }
+}
+
+.animate-pot-pulse {
+  animation: potPulse 0.35s ease-out;
+}
+
+/* Card count value popup (+1 / -1 / 0) */
+@keyframes cardPop {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 4px) scale(0.6);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, -2px) scale(1.1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -30px) scale(1);
+  }
+}
+
+.card-pop {
+  animation: cardPop 1.6s ease-out forwards;
+}
+
+/* Wrong count answer shake */
+@keyframes shakeX {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  20% {
+    transform: translateX(-8px);
+  }
+  40% {
+    transform: translateX(8px);
+  }
+  60% {
+    transform: translateX(-6px);
+  }
+  80% {
+    transform: translateX(6px);
+  }
+}
+
+.animate-shake {
+  animation: shakeX 0.4s ease-in-out;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+/* Discard tray */
+.discard-tray {
+  position: relative;
+  width: 80px;
+  height: 50px;
+  background: linear-gradient(135deg, #3d2b1f 0%, #2a1d14 100%);
+  border: 2px solid #5a3d2b;
+  border-radius: 4px;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 4px 6px;
+  overflow: hidden;
+}
+
+.discard-card {
+  position: absolute;
+  bottom: 4px;
+  width: 26px;
+  height: 36px;
+  background: linear-gradient(145deg, #f5f5f4 0%, #e4e4e7 100%);
+  border: 1px solid #a1a1aa;
+  border-radius: 3px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Cards are purely decorative in every game UI — their 3D flip layers
+   otherwise intercept clicks far outside their visual bounds. */
+.card-wrapper,
+.card-inner,
+.card-face {
+  pointer-events: none !important;
+}
