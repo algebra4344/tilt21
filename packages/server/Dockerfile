@@ -6,7 +6,7 @@ COPY package.json package-lock.json* ./
 COPY packages/core/package.json packages/core/
 COPY packages/server/package.json packages/server/
 COPY packages/web/package.json packages/web/
-RUN npm ci
+RUN npm ci --ignore-scripts
 
 FROM base AS build
 COPY --from=deps /app/node_modules ./node_modules
@@ -25,5 +25,6 @@ COPY packages/server/drizzle.config.ts packages/server/
 COPY packages/server/src/db packages/server/src/db
 COPY packages/core/package.json packages/core/
 COPY packages/server/package.json packages/server/
+RUN npm rebuild
 EXPOSE 3001
 CMD ["node", "packages/server/dist/index.js"]

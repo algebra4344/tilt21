@@ -6,7 +6,7 @@ COPY package.json package-lock.json* ./
 COPY packages/core/package.json packages/core/
 COPY packages/web/package.json packages/web/
 COPY packages/server/package.json packages/server/
-RUN npm ci
+RUN npm ci --ignore-scripts
 
 FROM base AS build
 ARG NEXT_PUBLIC_API_URL=http://localhost:3001
