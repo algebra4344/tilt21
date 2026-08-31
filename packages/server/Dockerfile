@@ -17,6 +17,7 @@ FROM base AS production
 ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=build /app/packages/server/dist packages/server/dist
+COPY --from=build /app/packages/core/dist packages/core/dist
 COPY packages/server/drizzle.config.ts packages/server/
 COPY packages/server/src/db packages/server/src/db
 COPY packages/core/package.json packages/core/

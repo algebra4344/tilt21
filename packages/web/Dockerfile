@@ -21,6 +21,7 @@ FROM base AS production
 ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=build /app/packages/web/.next packages/web/.next
+COPY --from=build /app/packages/core/dist packages/core/dist
 COPY packages/core/package.json packages/core/
 COPY packages/web/package.json packages/web/
 COPY packages/web/next.config.ts packages/web/
