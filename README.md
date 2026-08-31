@@ -6,6 +6,8 @@
 
 Texas Hold'em and blackjack you can actually play with people, not just bots. Open a table, share a link, and you're in. Or run a chipless poker night on real cards with your phones tracking the chips.
 
+**Play it now:** [tilt21-web.onrender.com](https://tilt21-web.onrender.com)
+
 </div>
 
 ---
