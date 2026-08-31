@@ -12,24 +12,14 @@ Texas Hold'em and blackjack you can actually play with people, not just bots. Op
 
 ---
 
-## What is Tilt21?
+## Features
 
-Tilt21 is a card game platform built around one simple idea: **playing cards with friends should be easy.**
-
-No sign-ups, no installs, no setup. You open a table, someone shares the link, and the game runs in your browser in real time. Want practice for yourself? There's a mode for that too.
-
-It all started as a blackjack card counting trainer and grew into a full platform — poker, blackjack, multiplayer, chipless home games, the works. It's still free, still MIT licensed, and you can host your own copy if you want.
-
-**Why the name?** In poker, going *on tilt* is when a bad beat makes you lose your composure and play worse. Tilt21 exists so you can study, practice, and enjoy the game — and keep your cool at the table.
-
-## What can you do with it?
-
-- **Play Texas Hold'em with friends** — real-time multiplayer, invite links and QR codes, and bots fill empty seats so a short-handed table still plays
-- **Run a chipless poker night** — bring a real deck, and use your phones to track stacks, bets, and payouts instead of chips. Settlement happens right on screen when the night's over
-- **Play poker against bots** — practice heads up or at a full table, and see your equity live
-- **Learn blackjack card counting** — a Hi-Lo trainer with visual count hints, true count bet sizing, and instant corrections
-- **Play blackjack with friends** — shared tables, private rooms, and in-game chat
-- **Practice blackjack solo** — a basic strategy coach that runs entirely in the browser, no backend needed
+- **Texas Hold'em with friends** — start a table, share the link, everyone's in. Bots fill empty seats when your group is short a player or two.
+- **Chipless poker night** — you've got a real deck but no chips. Phones track everyone's stacks, and it settles up when the night's over.
+- **Poker against bots** — play heads up or full table, with your live win chances on screen.
+- **Blackjack card counting trainer** — Hi-Lo counting with hints when you lose track, and it tells you when your bet should go up.
+- **Blackjack with friends** — shared tables, private rooms, and a chat to talk trash.
+- **Blackjack solo** — a basic strategy coach that runs right in your browser.
 
 ## Quick start (Docker)
 
