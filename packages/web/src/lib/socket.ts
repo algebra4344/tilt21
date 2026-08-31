@@ -72,17 +72,28 @@ export function getSocket(): Socket {
     console.error("[socket] connect error", err.message);
 
     // Self-heal: if the server rejects our auth (e.g. it was minted before a
-    // deploy, or localStorage was cleared mid-session), refresh identity and
-    // retry once. Guards against permanently bricked sessions.
-    if (err.message === "Authentication required" && !authRetried) {
+    // deploy, or localStorage was cleared mid-session), recover and retry once.
+    // Guards against permanently bricked sessions.
+    if (
+      (err.message === "Authentication required" || err.message === "Invalid token") &&
+      !authRetried
+    ) {
       authRetried = true;
-      console.warn("[socket] refreshing guest identity and reconnecting…");
-      const fresh = getGuestIdentity();
-      s.auth = {
-        ...(s.auth as Record<string, unknown> | undefined),
-        guestId: fresh.guestId,
-        guestName: fresh.guestName,
-      };
+      if (err.message === "Invalid token") {
+        // Stale JWT — drop it and fall back to guest identity.
+        console.warn("[socket] clearing invalid token and reconnecting as guest…");
+        localStorage.removeItem("token");
+        const fresh = getGuestIdentity();
+        s.auth = { guestId: fresh.guestId, guestName: fresh.guestName };
+      } else {
+        console.warn("[socket] refreshing guest identity and reconnecting…");
+        const fresh = getGuestIdentity();
+        s.auth = {
+          ...(s.auth as Record<string, unknown> | undefined),
+          guestId: fresh.guestId,
+          guestName: fresh.guestName,
+        };
+      }
       s.connect();
     }
   });
