@@ -24,6 +24,7 @@ function applySchema() {
     execSync(`npx drizzle-kit push --config "${configPath}" --force`, {
       stdio: 'inherit',
       env: process.env,
+      cwd: dirname(configPath),
     });
     console.log('Database schema applied.');
   } catch (err) {
