@@ -1,4 +1,7 @@
 import 'dotenv/config';
+import { execSync } from 'node:child_process';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
 import cors from 'cors';
 import { createServer } from 'node:http';
@@ -12,6 +15,24 @@ import { initializePokerHandlers } from './poker/socket.js';
 import { initializeHomeHandlers } from './poker/homeSocket.js';
 
 const PORT = parseInt(process.env.PORT || '3001', 10);
+
+function applySchema() {
+  if (process.env.SKIP_SCHEMA_PUSH === 'true') return;
+  const configPath = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'drizzle.config.ts');
+  try {
+    console.log('Applying database schema...');
+    execSync(`npx drizzle-kit push --config "${configPath}" --force`, {
+      stdio: 'inherit',
+      env: process.env,
+    });
+    console.log('Database schema applied.');
+  } catch (err) {
+    console.error('Database schema push failed:', err);
+    process.exit(1);
+  }
+}
+
+applySchema();
 
 const app = express();
 const server = createServer(app);
