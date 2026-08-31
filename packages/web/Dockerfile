@@ -14,16 +14,12 @@ ARG NEXT_PUBLIC_WS_URL=http://localhost:3001
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 ENV NEXT_PUBLIC_WS_URL=$NEXT_PUBLIC_WS_URL
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/packages/core/node_modules packages/core/node_modules
-COPY --from=deps /app/packages/web/node_modules packages/web/node_modules
 COPY . .
 RUN npm run build -w packages/core && npm run build -w packages/web
 
 FROM base AS production
 ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
-COPY --from=deps /app/packages/core/node_modules packages/core/node_modules
-COPY --from=deps /app/packages/web/node_modules packages/web/node_modules
 COPY --from=build /app/packages/web/.next packages/web/.next
 COPY packages/core/package.json packages/core/
 COPY packages/web/package.json packages/web/
