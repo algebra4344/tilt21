@@ -25,5 +25,6 @@ COPY --from=build /app/packages/core/dist packages/core/dist
 COPY packages/core/package.json packages/core/
 COPY packages/web/package.json packages/web/
 COPY packages/web/next.config.ts packages/web/
+WORKDIR /app/packages/web
 EXPOSE 3000
-CMD ["npm", "run", "start", "-w", "packages/web"]
+CMD ["node", "/app/node_modules/next/dist/bin/next", "start"]
