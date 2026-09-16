@@ -85,19 +85,43 @@ tilt21/
 │   ├── server/     # Express + Socket.io backend
 │   └── web/        # Next.js frontend
 ├── docker-compose.yml
-├── render.yaml     # Render Blueprint (Postgres + API + Web)
+├── render.yaml     # Render Blueprint (API only; web runs on Vercel)
 └── package.json    # npm workspace root
 ```
 
 ## Deployment
 
-Deploy the full app (Postgres + API + web) in one click using the included [Render Blueprint](render.yaml):
+The app deploys as three free services: **Vercel** hosts the Next.js frontend, **Render** runs the API, and **Neon** provides PostgreSQL (Render's free Postgres expires 30 days after creation).
 
-1. Push this repo to GitHub
-2. Render dashboard → **New → Blueprint** → connect the repo
-3. Wait for `tilt21-web` to go Live — that's your multiplayer URL
+### 1. Database — Neon
 
-Solo practice and poker-vs-bots run entirely client-side, so the web package can also be hosted on its own.
+1. Create a project and database at [neon.tech](https://neon.tech)
+2. Copy the **pooled** connection string and append `?sslmode=require` if it isn't already there
+
+### 2. API — Render
+
+1. Render dashboard → **New → Blueprint** → connect this repo
+2. When prompted, fill in the `sync: false` env vars:
+   - `DATABASE_URL` — the Neon pooled connection string
+   - `CORS_ORIGIN` — the Vercel production URL from step 3
+3. `tilt21-api` applies the database schema automatically on deploy (`preDeployCommand` and on boot)
+
+### 3. Web — Vercel
+
+1. Vercel → **Add New → Project** → import this repo
+2. Set **Root Directory** to `packages/web` (the included `vercel.json` handles the workspace build)
+3. Add environment variables (read at build time):
+   - `NEXT_PUBLIC_API_URL` = `https://tilt21-api.onrender.com`
+   - `NEXT_PUBLIC_WS_URL` = `https://tilt21-api.onrender.com`
+4. Deploy, then set the API's `CORS_ORIGIN` to the resulting production URL and redeploy the API
+
+### Free tier notes
+
+- Render's free tier includes 750 instance-hours per month **shared across every free service in the workspace**. One always-on service fits (~730-744 h); two do not. Keep-alive pings should hit only the API (`/health`), never a second service.
+- Spun-down services (15 minutes without incoming traffic) consume no instance-hours.
+- `NEXT_PUBLIC_*` values are baked in at build time — if the API URL changes, redeploy the frontend.
+- Vercel's Hobby plan is for non-commercial use only.
+- Solo practice and poker-vs-bots run entirely client-side, so the web package can also be hosted on its own.
 
 ## Testing
 

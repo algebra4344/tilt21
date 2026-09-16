@@ -18,7 +18,11 @@ const PORT = parseInt(process.env.PORT || '3001', 10);
 
 function applySchema() {
   if (process.env.SKIP_SCHEMA_PUSH === 'true') return;
-  const configPath = resolve(dirname(fileURLToPath(import.meta.url)), '..', 'drizzle.config.ts');
+  const configPath = resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    '..',
+    'drizzle.config.ts',
+  );
   try {
     console.log('Applying database schema...');
     execSync(`npx drizzle-kit push --config "${configPath}" --force`, {

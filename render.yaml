@@ -1,13 +1,10 @@
-# Render Blueprint — deploy Tilt21.
-# Dashboard: New → Blueprint → connect GitHub repo.
+# Render Blueprint — deploy the Tilt21 API.
 #
-# After first deploy, open the tilt21-web URL on your phone.
-
-databases:
-  - name: tilt21-db
-    databaseName: tilt21
-    user: tilt21
-    plan: free
+# The web frontend is deployed separately on Vercel (see README → Deployment).
+# Keeping only ONE always-on Render service is deliberate: the free tier gives
+# 750 instance-hours per workspace per month, and a single always-on service
+# consumes ~730-744 of them. A second always-on service would exhaust the
+# quota in roughly 15 days and suspend every free service in the workspace.
 
 services:
   - type: web
@@ -19,34 +16,16 @@ services:
     healthCheckPath: /health
     preDeployCommand: sh -c "cd packages/server && npx drizzle-kit push"
     envVars:
+      # Neon pooled connection string, e.g.
+      # postgresql://user:pass@ep-xxx-pooler.region.aws.neon.tech/tilt21?sslmode=require
+      # Set in the Render dashboard on first blueprint sync.
       - key: DATABASE_URL
-        fromDatabase:
-          name: tilt21-db
-          property: connectionString
+        sync: false
       - key: JWT_SECRET
         generateValue: true
       - key: PORT
         value: "3001"
+      # Production URL of the Vercel frontend, e.g. https://tilt21.vercel.app
+      # Must match the browser origin exactly (no trailing slash).
       - key: CORS_ORIGIN
-        fromService:
-          type: web
-          name: tilt21-web
-          envVarKey: RENDER_EXTERNAL_URL
-
-  - type: web
-    name: tilt21-web
-    runtime: docker
-    dockerfilePath: ./packages/web/Dockerfile
-    dockerContext: .
-    plan: free
-    envVars:
-      - key: NEXT_PUBLIC_API_URL
-        fromService:
-          type: web
-          name: tilt21-api
-          envVarKey: RENDER_EXTERNAL_URL
-      - key: NEXT_PUBLIC_WS_URL
-        fromService:
-          type: web
-          name: tilt21-api
-          envVarKey: RENDER_EXTERNAL_URL
+        sync: false
